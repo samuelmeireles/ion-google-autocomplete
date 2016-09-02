@@ -1,5 +1,6 @@
 angular.module('ion-google-autocomplete', [])
-.directive('googleAutocompleteSuggestion', function($document, $ionicModal, $ionicTemplateLoader, googleAutocompleteService) {
+/* TODO: Implementar como diretiva, ideal
+.directive('googleAutocompleteSuggestion', function($document, googleAutocompleteService) {
     return {
         restrict: 'A',
         scope: {
@@ -8,7 +9,7 @@ angular.module('ion-google-autocomplete', [])
             onSelection: '&'//Optional
         },
         link: function($scope, element) {
-        
+
             $scope.search = {};
             $scope.search.suggestions = [];
             $scope.search.query = '';
@@ -45,12 +46,34 @@ angular.module('ion-google-autocomplete', [])
 
             var searchInputElement = angular.element($scope.modal.$el.find('input'));
             
+            /*
             element[0].addEventListener('focus', function(event) {
                 
                 $scope.search.query = '';
                 $scope.open();
             });
+
+            element[0].addEventListener('keyup', function(event) {
+              var newValue = element[0].value;
+
+                googleAutocompleteService.searchAddress(newValue, $scope.countryCode).then(function(result) {
+                    
+                    $scope.search.error = null;
+                    $scope.search.suggestions = result;
+
+                    $scope.onSelection({ location: result });
+
+
+                }, function(status) {
+                    
+                    $scope.search.error = "There was an error :( " + status;
+                });
                 
+                $scope.search.query = '';
+                $scope.open();
+            });  
+
+
             $scope.open = function() {
                 
                 $scope.modal.show();
@@ -91,6 +114,7 @@ angular.module('ion-google-autocomplete', [])
         }
     }
 })
+*/
 angular.module('ion-google-autocomplete')
 .factory('googleAutocompleteService', function ($q) {
 
@@ -114,7 +138,6 @@ angular.module('ion-google-autocomplete')
           
         if (status == google.maps.places.PlacesServiceStatus.OK) {
             
-          console.log(status);
           dfd.resolve(result);
         }
         else
